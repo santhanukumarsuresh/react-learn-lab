@@ -9,9 +9,9 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false)
 
   return (
-    <div className="flex min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
+    <div className="flex h-screen overflow-hidden bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-50">
       <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col overflow-y-auto">
         <Topbar onMenuClick={() => setMenuOpen(true)} />
         <main className="flex-1">
           <Routes>

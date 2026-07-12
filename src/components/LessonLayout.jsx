@@ -15,7 +15,7 @@ export default function LessonLayout({ partId, part, lesson, prev, next, childre
   const challenge = codingChallenges[lesson.slug]
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
+    <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:my-8 lg:max-w-4xl lg:rounded-2xl lg:border lg:border-slate-200 lg:bg-white lg:px-10 lg:py-12 lg:shadow-sm dark:lg:border-slate-800 dark:lg:bg-slate-900/40">
       {part && (
         <p className="mb-2 flex items-center gap-1.5 text-sm font-medium text-sky-600 dark:text-sky-400">
           {PartIcon && <PartIcon size={15} />}

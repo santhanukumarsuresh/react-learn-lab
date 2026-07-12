@@ -83,11 +83,11 @@ export default function CodeSandbox({ code, noInline = true, scope }) {
           <span className="h-3 w-3 rounded-full bg-green-400" />
           <span className="ml-2">Try it yourself — edit the code!</span>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="bg-slate-900 p-4 text-sm">
+        <div className="flex flex-col">
+          <div className="max-h-72 overflow-y-auto bg-slate-900 p-4 text-sm">
             <LiveEditor className="font-mono" />
           </div>
-          <div className="flex flex-col justify-center bg-white p-4">
+          <div className="max-h-72 overflow-y-auto border-t border-slate-700 bg-white p-4 dark:bg-slate-100">
             <LivePreview />
             <LiveError className="mt-2 text-xs text-red-600" />
           </div>
