@@ -1,4 +1,5 @@
 import CodeBlock from '../components/CodeBlock'
+import CodeSandbox from '../components/CodeSandbox'
 
 export default function UseLayoutEffect() {
   return (
@@ -48,6 +49,49 @@ export default function UseLayoutEffect() {
         later, which looks glitchy. <code>useLayoutEffect</code> finishes its measuring and
         repositioning <em>before</em> anything is painted, so the user only ever sees the
         correct final position.
+      </p>
+
+      <h2>Try it: measuring a real element</h2>
+      <p>
+        Type in the box below — <code>useLayoutEffect</code> measures the box's real height
+        after every change and shows it, before the browser paints anything:
+      </p>
+      <CodeSandbox
+        code={`function Example() {
+  const boxRef = useRef(null);
+  const [text, setText] = useState("Type here to grow me...");
+  const [height, setHeight] = useState(0);
+
+  useLayoutEffect(() => {
+    const rect = boxRef.current.getBoundingClientRect();
+    setHeight(Math.round(rect.height));
+  }, [text]);
+
+  return (
+    <div>
+      <div
+        ref={boxRef}
+        style={{ border: "2px solid #38bdf8", padding: 8, minHeight: 20, whiteSpace: "pre-line" }}
+      >
+        {text}
+      </div>
+      <textarea
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ display: "block", marginTop: 8 }}
+        placeholder="Add more lines to grow the box above"
+      />
+      <p>Measured height: {height}px</p>
+    </div>
+  );
+}
+
+render(<Example />);`}
+      />
+      <p>
+        Add a few line breaks and the measured height updates instantly, with no visible
+        flash — that's <code>useLayoutEffect</code> doing its measuring work before the
+        browser ever shows the outdated number.
       </p>
 
       <div className="my-4 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm dark:border-amber-700 dark:bg-amber-900/30">

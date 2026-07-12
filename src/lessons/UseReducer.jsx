@@ -38,8 +38,8 @@ function Example() {
   return (
     <div>
       <p>Count: {state.count}</p>
-      <button onClick={() => dispatch({ type: "decremented" })}>-1</button>
-      <button onClick={() => dispatch({ type: "incremented" })}>+1</button>
+      <button onClick={() => dispatch({ type: "decremented" })} style={{ marginRight: 8 }}>-1</button>
+      <button onClick={() => dispatch({ type: "incremented" })} style={{ marginRight: 8 }}>+1</button>
       <button onClick={() => dispatch({ type: "reset" })}>Reset</button>
     </div>
   );

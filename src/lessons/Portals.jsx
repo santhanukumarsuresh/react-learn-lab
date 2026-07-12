@@ -38,20 +38,21 @@ function Example() {
 
   return (
     <div>
-      <div style={{ border: "2px solid #38bdf8", padding: 8, overflow: "hidden", height: 60 }}>
-        <p>I'm a container with overflow: hidden</p>
-        <button onClick={() => setShow(true)}>Open "modal"</button>
+      <button onClick={() => setShow(true)}>Open "modal"</button>
+
+      <div style={{ border: "2px solid #38bdf8", padding: 8, overflow: "hidden", height: 50, marginTop: 8 }}>
+        <p>I'm a container with overflow: hidden (only 50px tall)</p>
         {show && (
           <Modal container={portalTarget.current}>
             <div style={{ background: "#fef08a", padding: 8 }}>
-              🎉 I'm rendered in a totally different DOM node, so I'm never clipped!
+              🎉 I'm rendered in a totally different DOM node, so I'm never clipped!{" "}
               <button onClick={() => setShow(false)}>Close</button>
             </div>
           </Modal>
         )}
       </div>
 
-      <p>Portal target (elsewhere on the page):</p>
+      <p style={{ marginTop: 8 }}>Portal target (elsewhere on the page):</p>
       <div ref={portalTarget} style={{ border: "2px dashed #94a3b8", padding: 8, minHeight: 30 }} />
     </div>
   );

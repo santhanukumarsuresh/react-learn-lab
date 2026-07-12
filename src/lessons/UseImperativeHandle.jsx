@@ -30,7 +30,7 @@ export default function UseImperativeHandle() {
     },
   }));
 
-  return <input ref={inputRef} placeholder="I'm a fancy input" />;
+  return <input ref={inputRef} placeholder="I'm a fancy input" style={{ display: "block", marginBottom: 8 }} />;
 });
 
 function Example() {
@@ -39,7 +39,7 @@ function Example() {
   return (
     <div>
       <FancyInput ref={fancyRef} />
-      <button onClick={() => fancyRef.current.focus()}>Focus</button>
+      <button onClick={() => fancyRef.current.focus()} style={{ marginRight: 8 }}>Focus</button>
       <button onClick={() => fancyRef.current.clear()}>Clear</button>
     </div>
   );

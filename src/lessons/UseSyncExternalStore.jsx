@@ -1,4 +1,5 @@
 import CodeBlock from '../components/CodeBlock'
+import CodeSandbox from '../components/CodeSandbox'
 
 export default function UseSyncExternalStore() {
   return (
@@ -59,6 +60,63 @@ function StatusBadge() {
       <p>
         React calls <code>getSnapshot</code> whenever it needs to check if the external
         value has changed, and automatically re-renders your component when it has.
+      </p>
+
+      <h2>Try it: a tiny external store</h2>
+      <p>
+        Here's a genuinely external store — a plain object living completely outside
+        React, with its own <code>subscribe</code> and <code>getSnapshot</code>. Two
+        separate components below both read from it and stay in sync automatically:
+      </p>
+      <CodeSandbox
+        code={`// A store that lives entirely outside React — just a variable and some listeners.
+let count = 0;
+const listeners = new Set();
+
+const counterStore = {
+  increment() {
+    count += 1;
+    listeners.forEach((listener) => listener());
+  },
+  subscribe(callback) {
+    listeners.add(callback);
+    return () => listeners.delete(callback);
+  },
+  getSnapshot() {
+    return count;
+  },
+};
+
+function useCounterStore() {
+  return useSyncExternalStore(counterStore.subscribe, counterStore.getSnapshot);
+}
+
+function DisplayA() {
+  const count = useCounterStore();
+  return <p>Display A sees: {count}</p>;
+}
+
+function DisplayB() {
+  const count = useCounterStore();
+  return <p>Display B sees: {count}</p>;
+}
+
+function Example() {
+  return (
+    <div>
+      <button onClick={() => counterStore.increment()}>Increment shared count</button>
+      <DisplayA />
+      <DisplayB />
+    </div>
+  );
+}
+
+render(<Example />);`}
+      />
+      <p>
+        Click the button — both displays update together, even though neither of them
+        called <code>setState</code> directly. The store itself owns the truth;{' '}
+        <code>useSyncExternalStore</code> just keeps React's rendering honest about it.
       </p>
 
       <div className="my-4 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm dark:border-amber-700 dark:bg-amber-900/30">

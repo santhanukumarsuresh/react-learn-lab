@@ -18,12 +18,13 @@ export default function CourseDetailPages() {
         if the user navigates away and back quickly:
       </p>
       <pre className="my-4 overflow-x-auto rounded-lg bg-slate-900 p-4 text-sm text-slate-100">
-        <code className="font-mono">{`function useFetch(fetchFunction) {
+        <code className="font-mono">{`function useFetch(fetchFunction, deps) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let ignore = false;
+    setIsLoading(true);
 
     async function load() {
       const result = await fetchFunction();
@@ -37,11 +38,22 @@ export default function CourseDetailPages() {
     return () => {
       ignore = true;
     };
-  }, [fetchFunction]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 
   return { data, isLoading };
 }`}</code>
       </pre>
+
+      <div className="my-4 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm dark:border-amber-700 dark:bg-amber-900/30">
+        ⚠️ Gotcha worth calling out (straight from the "Effect Dependencies" lesson): you
+        might expect to write <code>useEffect(..., [fetchFunction])</code> here. Don't —{' '}
+        <code>fetchFunction</code> is usually a fresh inline arrow function every render, so
+        that dependency never stops changing, and the effect runs forever. Instead,{' '}
+        <code>useFetch</code> takes an explicit <code>deps</code> array from the caller,
+        built from real, stable values like <code>courseId</code> — exactly the fix you
+        already learned.
+      </div>
 
       <h2>Putting it together with routing</h2>
       <p>
@@ -61,7 +73,7 @@ function getCourse(id) {
   });
 }
 
-function useFetch(fetchFunction) {
+function useFetch(fetchFunction, deps) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -75,13 +87,14 @@ function useFetch(fetchFunction) {
       }
     });
     return () => { ignore = true; };
-  }, [fetchFunction]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 
   return { data, isLoading };
 }
 
 function CourseDetailPage({ courseId, onBack }) {
-  const { data: course, isLoading } = useFetch(() => getCourse(courseId));
+  const { data: course, isLoading } = useFetch(() => getCourse(courseId), [courseId]);
 
   if (isLoading) return <p>Loading course...</p>;
 
@@ -129,7 +142,7 @@ render(<Example />);`}
 
 // inside CourseDetailPage:
 const { courseId } = useParams();
-const { data: course, isLoading } = useFetch(() => getCourse(courseId));`}</code>
+const { data: course, isLoading } = useFetch(() => getCourse(courseId), [courseId]);`}</code>
       </pre>
 
       <p>
