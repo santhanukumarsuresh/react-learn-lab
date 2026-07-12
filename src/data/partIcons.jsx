@@ -10,6 +10,13 @@ import {
   Compass,
   Rocket,
   Gift,
+  GraduationCap,
+  Gauge,
+  ShieldAlert,
+  LayoutTemplate,
+  Waves,
+  TestTube2,
+  Server,
 } from 'lucide-react'
 
 // Maps each curriculum part id to a Lucide icon component.
@@ -24,5 +31,12 @@ export const partIcons = {
   hooks: Anchor,
   router: Compass,
   project: Rocket,
+  'course-catalog-project': GraduationCap,
   bonus: Gift,
+  'adv-performance': Gauge,
+  'adv-resilience': ShieldAlert,
+  'adv-patterns': LayoutTemplate,
+  'adv-concurrent': Waves,
+  'adv-quality': TestTube2,
+  'adv-architecture': Server,
 }

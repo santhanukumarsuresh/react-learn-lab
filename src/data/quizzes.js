@@ -605,4 +605,383 @@ export const quizzes = {
         'TypeScript is JavaScript plus type annotations. Your editor and build tools use those labels to catch mismatches — like passing a number where a string was expected — before you ever run the app.',
     },
   ],
+  'use-memo': [
+    {
+      question: 'What does `useMemo(calculateValue, deps)` do?',
+      options: [
+        'Runs calculateValue on every render, always',
+        'Caches the result and only recalculates when a dependency changes',
+        'Deletes the value when the component unmounts',
+        'Runs calculateValue only once, ever, no matter what'
+      ],
+      correctIndex: 1,
+      explanation:
+        "useMemo re-runs the calculation only when something in the dependency array changes; otherwise it reuses the cached result from the previous render.",
+    },
+  ],
+  'use-callback': [
+    {
+      question: 'Why might a child wrapped in React.memo re-render even when its props "look" the same?',
+      options: [
+        'React.memo does nothing',
+        'A function defined inline is a brand-new reference every render, so memo sees it as "changed"',
+        'Children always re-render regardless of memo',
+        'useCallback is required for memo to exist'
+      ],
+      correctIndex: 1,
+      explanation:
+        'memo compares props by reference. An inline function is recreated every render, so even though it "does the same thing," it\'s a different reference — wrap it in useCallback to keep that reference stable.',
+    },
+  ],
+  'use-layout-effect': [
+    {
+      question: 'What is the key difference between useEffect and useLayoutEffect?',
+      options: [
+        'They are exactly identical',
+        'useLayoutEffect runs before the browser paints; useEffect runs after',
+        'useLayoutEffect only works with class components',
+        'useEffect cannot use a dependency array'
+      ],
+      correctIndex: 1,
+      explanation:
+        'useLayoutEffect blocks the browser from painting until it finishes — useful for DOM measurements that must happen before the user sees anything, at the cost of potentially blocking rendering if it\'s slow.',
+    },
+  ],
+  'use-imperative-handle': [
+    {
+      question: 'What must wrap a component before useImperativeHandle can expose a custom ref API for it?',
+      options: ['useMemo', 'forwardRef', 'useContext', 'Nothing — it works on any component'],
+      correctIndex: 1,
+      explanation:
+        'A component must be wrapped in forwardRef to receive a ref from its parent at all. useImperativeHandle then customizes exactly what that ref exposes.',
+    },
+  ],
+  'use-id': [
+    {
+      question: 'Why is useId better than hardcoding id="email" in a reusable form field component?',
+      options: [
+        "It's not better, they're the same",
+        'Using the same component twice on a page would create duplicate ids, breaking label/input association',
+        'useId makes the component render faster',
+        'Hardcoded ids are not allowed in JSX'
+      ],
+      correctIndex: 1,
+      explanation:
+        'useId generates a unique id per component instance, so using the same component multiple times on one page never causes id collisions.',
+    },
+  ],
+  'use-transition': [
+    {
+      question: 'What does wrapping a state update in startTransition actually do?',
+      options: [
+        'Makes the update run instantly',
+        'Marks the update as lower priority, so more urgent updates like typing can happen first',
+        'Cancels the update entirely',
+        'Runs the update on a separate thread'
+      ],
+      correctIndex: 1,
+      explanation:
+        "It doesn't speed up the work — it tells React this update can be interrupted by more urgent ones, keeping things like text input feeling instant even during expensive re-renders.",
+    },
+  ],
+  'use-deferred-value': [
+    {
+      question: 'When should you reach for useDeferredValue instead of useTransition?',
+      options: [
+        'They do completely unrelated things',
+        'When you only have a value (like a prop), not a setter you control, but still want to deprioritize using it',
+        'useDeferredValue is always the better choice',
+        'Only inside class components'
+      ],
+      correctIndex: 1,
+      explanation:
+        "useTransition wraps a state update you control. useDeferredValue is for when you're just handed a value and want a lagging, lower-priority version of it to render with.",
+    },
+  ],
+  'use-sync-external-store': [
+    {
+      question: 'What are the two functions you must provide to useSyncExternalStore?',
+      options: [
+        'render and cleanup',
+        'subscribe (listen for changes) and getSnapshot (read the current value)',
+        'mount and unmount',
+        'get and set'
+      ],
+      correctIndex: 1,
+      explanation:
+        'subscribe tells React how to listen for external changes (and how to stop listening), while getSnapshot returns the current value whenever React needs to check it.',
+    },
+  ],
+  'use-hook': [
+    {
+      question: 'What makes the use() function different from every other Hook?',
+      options: [
+        'It can only be used in class components',
+        'It can be called conditionally, inside loops, or after an early return',
+        'It never re-renders the component',
+        'It requires a dependency array'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Unlike other Hooks, use() is exempt from the "always call Hooks at the top level" rule — you can call it inside if statements and loops, which is what lets it read a promise or context conditionally.',
+    },
+  ],
+  'use-action-state': [
+    {
+      question: 'What does useActionState give you back?',
+      options: [
+        'Just the current form values',
+        'The current state, a form action to wire into <form action={...}>, and an isPending flag',
+        'Only a loading boolean',
+        'A reference to the DOM form element'
+      ],
+      correctIndex: 1,
+      explanation:
+        'useActionState(actionFn, initialState) returns [state, formAction, isPending] — bundling form submission, its result, and its loading status into one Hook.',
+    },
+  ],
+  'use-optimistic': [
+    {
+      question: "What is an 'optimistic update'?",
+      options: [
+        'Always assuming the server will fail',
+        'Showing the expected result on screen immediately, before the server confirms it worked',
+        'A type of error boundary',
+        'Deleting old state automatically'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Optimistic updates show the "hoped for" result right away, making the app feel instant, then reconcile with the real confirmed state once the request finishes.',
+    },
+  ],
+  'other-hooks': [
+    {
+      question: 'What does useDebugValue actually change about how your app runs?',
+      options: [
+        'It makes state updates faster',
+        'Nothing — it only affects what label shows up for a custom hook in React DevTools',
+        'It prevents re-renders',
+        'It logs errors to the console'
+      ],
+      correctIndex: 1,
+      explanation:
+        "useDebugValue is purely a developer-experience tool for labeling custom hooks in React DevTools — it has zero effect on your app's actual behavior.",
+    },
+  ],
+  'course-catalog-overview': [
+    {
+      question: 'In the CourseCard example, what should the key prop be set to?',
+      options: ['A random number generated each render', 'The array index', "The course's unique id", "The course's title"],
+      correctIndex: 2,
+      explanation:
+        'A stable, unique id from your actual data is always the safest key — it stays correct even if the list gets reordered, filtered, or edited.',
+    },
+  ],
+  'course-form': [
+    {
+      question: 'Why does the form use a ref and a one-time useEffect on the title input?',
+      options: [
+        'To validate the input',
+        'To automatically focus that field when the form first appears',
+        'To submit the form automatically',
+        'It has no real purpose'
+      ],
+      correctIndex: 1,
+      explanation:
+        "A ref gives direct access to the real input DOM node, and calling .focus() inside a useEffect with an empty dependency array runs it once, right when the form mounts — a common usability touch.",
+    },
+  ],
+  'course-interactivity': [
+    {
+      question: 'Why does toggleFavorite use `.map()` instead of directly changing the matching course object?',
+      options: [
+        '.map() is required syntax in JavaScript',
+        "It builds a new array with a new object for the changed course, so React detects the state change",
+        '.map() is faster than a for loop',
+        "It doesn't matter, both approaches work identically"
+      ],
+      correctIndex: 1,
+      explanation:
+        'Directly mutating the object inside the array would leave the array reference itself unchanged, and React might not notice — .map() always returns a fresh array with fresh objects for anything that changed.',
+    },
+  ],
+  'course-api-submission': [
+    {
+      question: 'Why does saveCourse return a `new Promise(...)` with setTimeout instead of resolving instantly?',
+      options: [
+        "It's a mistake in the example",
+        'It simulates the real delay and possible failure of a genuine network request, using the same async patterns a real fetch() call would need',
+        'Promises always require setTimeout',
+        'To make the code run faster'
+      ],
+      correctIndex: 1,
+      explanation:
+        "Simulating the delay (and possible rejection) with setTimeout lets you practice the exact same try/catch, loading, and error-handling patterns you'd need for a real fetch() call — the code barely changes when you swap in a real API.",
+    },
+  ],
+  'course-statistics': [
+    {
+      question: 'Why wrap the stats calculation in both a custom hook AND useMemo?',
+      options: [
+        "It's unnecessary and only useMemo is needed",
+        'The custom hook makes it reusable across components, and useMemo avoids recalculating unless the course list actually changes',
+        'Custom hooks automatically memoize everything inside them',
+        'useMemo requires being inside a custom hook'
+      ],
+      correctIndex: 1,
+      explanation:
+        'These are two independent, complementary ideas: a custom hook packages reusable logic, while useMemo (used inside it) avoids redoing the expensive calculation on every unrelated re-render.',
+    },
+  ],
+  'course-detail-pages': [
+    {
+      question: "In the useFetch hook, what does the `ignore` flag inside the cleanup function prevent?",
+      options: [
+        'It prevents any network requests at all',
+        'A slow, outdated request from overwriting fresher data if the component re-fetches before the old request finishes',
+        'It stops the component from ever re-rendering',
+        'It has no real purpose'
+      ],
+      correctIndex: 1,
+      explanation:
+        "If a user navigates quickly (triggering a new fetch) before an old one finishes, the old request's result could arrive later and incorrectly overwrite the newer data. Setting ignore=true in cleanup tells the old request's callback to do nothing when it finally resolves.",
+    },
+  ],
+  'react-memo': [
+    {
+      question: 'Why does wrapping a child in `memo` sometimes fail to prevent re-renders?',
+      options: [
+        'memo only works on class components',
+        'An inline object or function prop is a new reference every render, so the shallow comparison always sees it as "changed"',
+        'memo is deprecated',
+        'memo only checks the first prop'
+      ],
+      correctIndex: 1,
+      explanation:
+        "memo does a shallow (===) comparison per prop. Objects and functions created fresh on every render are never === to the previous render's version — pair memo with useMemo/useCallback to keep those references stable.",
+    },
+  ],
+  'code-splitting-suspense': [
+    {
+      question: 'What does `<Suspense fallback={...}>` do?',
+      options: [
+        'Prevents a component from ever loading',
+        'Shows the fallback content until its lazy children have finished loading',
+        'Splits code automatically without lazy()',
+        'Only works with class components'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Suspense catches the "still loading" signal from lazy components (or promises read via use()) beneath it and shows the fallback until they\'re ready.',
+    },
+  ],
+  'error-boundaries': [
+    {
+      question: 'What kind of errors do error boundaries NOT catch?',
+      options: [
+        'Errors during rendering',
+        'Errors inside event handlers, like an onClick callback',
+        'Errors in lifecycle methods',
+        'Errors in constructors'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Error boundaries only catch errors thrown during rendering, in lifecycle methods, and in constructors — event handler errors need their own try/catch.',
+    },
+  ],
+  portals: [
+    {
+      question: 'When using createPortal, where does the component sit in the React component tree vs. the DOM?',
+      options: [
+        "It's removed from both",
+        "It stays in its logical place in React's component tree (context, event bubbling work normally), but its actual DOM output renders elsewhere",
+        "It moves in both the component tree and the DOM",
+        'Portals only work with class components'
+      ],
+      correctIndex: 1,
+      explanation:
+        "A portal separates 'where it renders in the DOM' from 'where it lives in React's component tree' — props, context, and event bubbling all still behave as if it were nested normally.",
+    },
+  ],
+  'compound-components': [
+    {
+      question: 'How do the pieces of a compound component (like Tabs.Tab and Tabs.Panel) typically share state without prop drilling?',
+      options: [
+        'Global variables', 'A shared Context provided by the parent component', 'They cannot share state', 'localStorage'
+      ],
+      correctIndex: 1,
+      explanation:
+        'The outer component (Tabs) creates a Context and provides the shared state; each inner piece (Tab, Panel) reads from that same context, avoiding manual prop passing through every level.',
+    },
+  ],
+  'higher-order-components': [
+    {
+      question: 'What does a Higher-Order Component actually do?',
+      options: [
+        'It is a component that renders faster than normal',
+        'It is a function that takes a component and returns a new, enhanced component',
+        'It is a special kind of Hook',
+        'It only works with Redux'
+      ],
+      correctIndex: 1,
+      explanation:
+        "A HOC is just a function — component in, enhanced component out — similar in spirit to how .map() takes a function and returns a new array. Modern code often prefers a custom hook for the same job.",
+    },
+  ],
+  'concurrent-rendering': [
+    {
+      question: 'What can happen to a render wrapped in startTransition if a more urgent update arrives?',
+      options: [
+        'Nothing, it always finishes first',
+        'It can be interrupted and even discarded entirely in favor of restarting with the latest state',
+        'It crashes the app',
+        'It pauses forever'
+      ],
+      correctIndex: 1,
+      explanation:
+        "Concurrent rendering lets React interrupt low-priority transition work for something more urgent (like a keystroke), and if a newer update supersedes it, React can throw away the stale in-progress work and start fresh.",
+    },
+  ],
+  'testing-react': [
+    {
+      question: "What is React Testing Library's core philosophy?",
+      options: [
+        "Test a component's internal state directly",
+        "Test components the way a real user would interact with them (finding elements by role/text, clicking, typing)",
+        'Only use snapshot tests',
+        'Avoid testing async behavior'
+      ],
+      correctIndex: 1,
+      explanation:
+        "RTL deliberately avoids reaching into implementation details like internal state — it queries by role/text/label (like a user or screen reader would) and interacts via real events, so tests stay valid even as internals change.",
+    },
+  ],
+  accessibility: [
+    {
+      question: 'Why is `<button onClick={...}>` generally better than `<div onClick={...}>` for a clickable action?',
+      options: [
+        "There's no real difference",
+        'A real button is keyboard-focusable and triggerable with Enter/Space automatically, with no extra code needed',
+        'div elements cannot have onClick handlers',
+        'Buttons render faster'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Semantic HTML elements come with built-in accessibility behavior — keyboard focus, correct screen-reader announcement, Enter/Space activation — for free, which a div requires extra ARIA attributes and key handlers to replicate.',
+    },
+  ],
+  'server-components': [
+    {
+      question: 'What is the key difference between a Server Component and a Client Component?',
+      options: [
+        'Server Components are just faster Client Components',
+        "A Server Component's code runs only on the server and is never sent to the browser; Client Components (marked \"use client\") run in the browser and can be interactive",
+        'There is no real difference',
+        'Client Components cannot use props'
+      ],
+      correctIndex: 1,
+      explanation:
+        "Server Components can fetch data directly (even with async/await in the component body) without shipping any of that code or its dependencies to the browser. Interactive components still need to run client-side, marked with \"use client\".",
+    },
+  ],
 }

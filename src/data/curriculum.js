@@ -91,6 +91,18 @@ export const curriculum = [
       { slug: 'use-ref', title: 'Referencing Values with useRef', ready: true },
       { slug: 'use-reducer', title: 'Extracting Logic with useReducer', ready: true },
       { slug: 'use-context', title: 'Passing Data Deeply with Context', ready: true },
+      { slug: 'use-memo', title: 'Caching Values with useMemo', ready: true },
+      { slug: 'use-callback', title: 'Caching Functions with useCallback', ready: true },
+      { slug: 'use-layout-effect', title: 'useLayoutEffect', ready: true },
+      { slug: 'use-imperative-handle', title: 'useImperativeHandle', ready: true },
+      { slug: 'use-id', title: 'useId', ready: true },
+      { slug: 'use-transition', title: 'useTransition', ready: true },
+      { slug: 'use-deferred-value', title: 'useDeferredValue', ready: true },
+      { slug: 'use-sync-external-store', title: 'useSyncExternalStore', ready: true },
+      { slug: 'use-hook', title: 'The use() Function', ready: true },
+      { slug: 'use-action-state', title: 'useActionState', ready: true },
+      { slug: 'use-optimistic', title: 'useOptimistic', ready: true },
+      { slug: 'other-hooks', title: 'A Few Rare Hooks', ready: true },
       { slug: 'custom-hooks', title: 'Building Your Own Hook', ready: true },
     ],
   },
@@ -111,10 +123,79 @@ export const curriculum = [
     ],
   },
   {
+    id: 'course-catalog-project',
+    title: 'Part 10 · Build a Course Catalog',
+    lessons: [
+      { slug: 'course-catalog-overview', title: 'Rendering the Course List', ready: true },
+      { slug: 'course-form', title: 'A Validated Course Form', ready: true },
+      { slug: 'course-interactivity', title: 'Favorites and Enrollment', ready: true },
+      { slug: 'course-api-submission', title: 'Real API Submission with Promises', ready: true },
+      { slug: 'course-statistics', title: 'Computed Statistics with useMemo', ready: true },
+      { slug: 'course-detail-pages', title: 'Dedicated Pages with useFetch', ready: true },
+    ],
+  },
+  {
     id: 'bonus',
-    title: 'Part 10 · Bonus',
+    title: 'Part 11 · Bonus',
     lessons: [
       { slug: 'intro-to-typescript', title: 'A Peek at TypeScript', ready: true },
+    ],
+  },
+
+  // --- Advanced Track ---
+  // Hard, senior-level topics. Kept as a separate, opt-in track selected via
+  // the tier toggle in the Sidebar/HomePage, rather than mixed into the main
+  // beginner-to-mid course above.
+  {
+    id: 'adv-performance',
+    title: 'Advanced · Performance Engineering',
+    tier: 'advanced',
+    lessons: [
+      { slug: 'react-memo', title: 'React.memo and Re-render Control', ready: true },
+      { slug: 'code-splitting-suspense', title: 'Code Splitting with lazy() and Suspense', ready: true },
+    ],
+  },
+  {
+    id: 'adv-resilience',
+    title: 'Advanced · Resilience & Escape Hatches',
+    tier: 'advanced',
+    lessons: [
+      { slug: 'error-boundaries', title: 'Error Boundaries', ready: true },
+      { slug: 'portals', title: 'Portals', ready: true },
+    ],
+  },
+  {
+    id: 'adv-patterns',
+    title: 'Advanced · Component Design Patterns',
+    tier: 'advanced',
+    lessons: [
+      { slug: 'compound-components', title: 'Compound Components', ready: true },
+      { slug: 'higher-order-components', title: 'Higher-Order Components', ready: true },
+    ],
+  },
+  {
+    id: 'adv-concurrent',
+    title: 'Advanced · Concurrent React',
+    tier: 'advanced',
+    lessons: [
+      { slug: 'concurrent-rendering', title: 'Concurrent Rendering, Deeply', ready: true },
+    ],
+  },
+  {
+    id: 'adv-quality',
+    title: 'Advanced · Testing & Accessibility',
+    tier: 'advanced',
+    lessons: [
+      { slug: 'testing-react', title: 'Testing React Components', ready: true },
+      { slug: 'accessibility', title: 'Accessibility (a11y) in Depth', ready: true },
+    ],
+  },
+  {
+    id: 'adv-architecture',
+    title: 'Advanced · Modern Architecture',
+    tier: 'advanced',
+    lessons: [
+      { slug: 'server-components', title: 'Server Components & Streaming SSR', ready: true },
     ],
   },
 ]
@@ -125,6 +206,14 @@ export function findLesson(partId, lessonSlug) {
   const lessonIndex = part.lessons.findIndex((l) => l.slug === lessonSlug)
   if (lessonIndex === -1) return null
   return { part, lesson: part.lessons[lessonIndex], lessonIndex }
+}
+
+export function partsForTier(tier) {
+  return curriculum.filter((p) => (p.tier || 'core') === tier)
+}
+
+export function totalLessonsForTier(tier) {
+  return partsForTier(tier).reduce((sum, p) => sum + p.lessons.length, 0)
 }
 
 export function flattenLessons() {

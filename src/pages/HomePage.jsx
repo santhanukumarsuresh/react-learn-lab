@@ -1,14 +1,24 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Sparkles } from 'lucide-react'
-import { curriculum, totalLessons } from '../data/curriculum'
+import { ArrowRight, Sparkles, Flame } from 'lucide-react'
+import { partsForTier, totalLessonsForTier } from '../data/curriculum'
 import { partIcons } from '../data/partIcons'
 import { useProgress } from '../data/ProgressContext'
+import { useTier } from '../data/useTier'
 import ProgressBar from '../components/ProgressBar'
 
 export default function HomePage() {
-  const firstLesson = curriculum[0].lessons[0]
-  const { completed } = useProgress()
-  const percent = totalLessons ? Math.round((completed.size / totalLessons) * 100) : 0
+  const { completed, isComplete } = useProgress()
+  const [tier, setTier] = useTier()
+
+  const parts = partsForTier(tier)
+  const total = totalLessonsForTier(tier)
+  const completedInTier = parts.reduce(
+    (sum, part) => sum + part.lessons.filter((l) => isComplete(part.id, l.slug)).length,
+    0
+  )
+  const percent = total ? Math.round((completedInTier / total) * 100) : 0
+  const firstPart = parts[0]
+  const firstLesson = firstPart?.lessons[0]
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-14 sm:px-6">
@@ -23,13 +33,40 @@ export default function HomePage() {
           Learn React from scratch — with simple words, fun examples, code you can play with
           right in your browser, and quick quizzes to lock it all in.
         </p>
-        <Link
-          to={`/learn/${curriculum[0].id}/${firstLesson.slug}`}
-          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 font-semibold text-white shadow-lg shadow-sky-600/20 transition hover:-translate-y-0.5 hover:bg-sky-500"
-        >
-          {percent > 0 ? 'Continue Learning' : 'Start Learning'}
-          <ArrowRight size={18} />
-        </Link>
+
+        <div className="mx-auto mt-6 flex w-fit gap-1 rounded-lg bg-slate-100 p-1 text-sm font-semibold dark:bg-slate-900">
+          <button
+            onClick={() => setTier('core')}
+            className={`rounded-md px-4 py-1.5 transition ${
+              tier === 'core'
+                ? 'bg-white text-sky-600 shadow-sm dark:bg-slate-800 dark:text-sky-400'
+                : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+            }`}
+          >
+            Core Course
+          </button>
+          <button
+            onClick={() => setTier('advanced')}
+            className={`flex items-center gap-1 rounded-md px-4 py-1.5 transition ${
+              tier === 'advanced'
+                ? 'bg-white text-orange-600 shadow-sm dark:bg-slate-800 dark:text-orange-400'
+                : 'text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200'
+            }`}
+          >
+            <Flame size={14} />
+            Advanced Track
+          </button>
+        </div>
+
+        {firstLesson && (
+          <Link
+            to={`/learn/${firstPart.id}/${firstLesson.slug}`}
+            className="mt-6 inline-flex items-center gap-2 rounded-lg bg-sky-600 px-6 py-3 font-semibold text-white shadow-lg shadow-sky-600/20 transition hover:-translate-y-0.5 hover:bg-sky-500"
+          >
+            {percent > 0 ? 'Continue Learning' : 'Start Learning'}
+            <ArrowRight size={18} />
+          </Link>
+        )}
 
         {percent > 0 && (
           <div className="mx-auto mt-8 max-w-xs">
@@ -38,8 +75,16 @@ export default function HomePage() {
         )}
       </div>
 
-      <div className="mt-16 grid gap-4 sm:grid-cols-2">
-        {curriculum.map((part) => {
+      {tier === 'advanced' && (
+        <div className="mx-auto mt-10 max-w-xl rounded-lg border border-orange-200 bg-orange-50 p-4 text-center text-sm text-orange-800 dark:border-orange-900/60 dark:bg-orange-950/30 dark:text-orange-200">
+          🔥 You're in the <strong>Advanced Track</strong> — senior-level topics like
+          performance engineering, concurrent rendering, and testing. Comfortable with the
+          Core Course first? These lessons assume it.
+        </div>
+      )}
+
+      <div className="mt-10 grid gap-4 sm:grid-cols-2">
+        {parts.map((part) => {
           const PartIcon = partIcons[part.id]
           return (
             <Link
