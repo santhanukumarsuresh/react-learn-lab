@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://santhanukumarsuresh.github.io/react-learn-lab/sitemap.xml

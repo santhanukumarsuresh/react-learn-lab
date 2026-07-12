@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/react-learn-lab/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Learn Lab — Learn React the Fun Way</title>
+    <meta
+      name="description"
+      content="A free, beginner-friendly React course with simple explanations and interactive code examples you can try right in your browser."
+    />
+    <meta name="theme-color" content="#0c4a6e" />
+    <meta property="og:title" content="React Learn Lab — Learn React the Fun Way" />
+    <meta
+      property="og:description"
+      content="A free, beginner-friendly React course with simple explanations and interactive code examples."
+    />
+    <meta property="og:type" content="website" />
+    <script>
+      // Restores the original deep-link path saved by 404.html.
+      ;(function (l) {
+        if (l.search[1] === 'p' && l.search[2] === '=') {
+          var decoded = l.search
+            .slice(3)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&')
+            })
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded.shift() + (decoded.length ? '?' + decoded.join('&') : '') + l.hash
+          )
+        }
+      })(window.location)
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
