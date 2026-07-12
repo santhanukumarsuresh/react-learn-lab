@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { ChevronDown, ChevronRight, CheckCircle2, Circle, Trophy } from 'lucide-react'
 import { curriculum, totalLessons } from '../data/curriculum'
-import { useProgress } from '../data/useProgress'
+import { useProgress } from '../data/ProgressContext'
 import { partIcons } from '../data/partIcons'
 import ProgressBar from './ProgressBar'
 

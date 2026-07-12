@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Sparkles } from 'lucide-react'
 import { curriculum, totalLessons } from '../data/curriculum'
 import { partIcons } from '../data/partIcons'
-import { useProgress } from '../data/useProgress'
+import { useProgress } from '../data/ProgressContext'
 import ProgressBar from '../components/ProgressBar'
 
 export default function HomePage() {

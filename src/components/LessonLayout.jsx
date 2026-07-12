@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react'
-import { useProgress } from '../data/useProgress'
+import { useProgress } from '../data/ProgressContext'
 import { partIcons } from '../data/partIcons'
 import { quizzes } from '../data/quizzes'
 import { codingChallenges } from '../data/codingChallenges'

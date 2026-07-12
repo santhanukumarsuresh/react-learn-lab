@@ -9,6 +9,7 @@ import {
   Anchor,
   Compass,
   Rocket,
+  Gift,
 } from 'lucide-react'
 
 // Maps each curriculum part id to a Lucide icon component.
@@ -23,4 +24,5 @@ export const partIcons = {
   hooks: Anchor,
   router: Compass,
   project: Rocket,
+  bonus: Gift,
 }

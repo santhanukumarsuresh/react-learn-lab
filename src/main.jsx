@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
+import { ProgressProvider } from './data/ProgressContext'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter basename="/react-learn-lab">
-      <App />
+      <ProgressProvider>
+        <App />
+      </ProgressProvider>
     </BrowserRouter>
   </StrictMode>,
 )

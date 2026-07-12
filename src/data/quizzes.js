@@ -485,4 +485,124 @@ export const quizzes = {
         'Context lets deeply nested components read a value directly from a Provider higher up the tree, skipping all the components in between that would otherwise have to pass it down as props.',
     },
   ],
+  'promises-async-await': [
+    {
+      question: 'What must a function be marked as before you can use `await` inside it?',
+      options: ['static', 'const', 'async', 'export'],
+      correctIndex: 2,
+      explanation:
+        'The `async` keyword marks a function as one that can pause and wait for promises with `await`. Without it, `await` is a syntax error.',
+    },
+  ],
+  'rendering-to-the-dom': [
+    {
+      question: 'What does `createRoot(document.getElementById("root")).render(<App />)` do?',
+      options: [
+        'Deletes the HTML file',
+        'Tells React to draw the App component tree inside that one HTML element',
+        'Creates a new HTML file',
+        'Installs React onto the computer'
+      ],
+      correctIndex: 1,
+      explanation:
+        'createRoot hands React control of a single empty DOM node, and .render() tells it to draw your whole component tree, starting from App, inside that node.',
+    },
+  ],
+  'ui-as-a-tree': [
+    {
+      question: 'In a React component tree, which direction do props normally flow?',
+      options: ['Sideways between siblings', 'From parents down to children', 'From children up to parents', 'In any direction'],
+      correctIndex: 1,
+      explanation:
+        'Props always flow one way: from a parent down to its children. This is exactly why "lifting state up" means moving state to a shared parent — so it can flow back down to everyone who needs it.',
+    },
+  ],
+  'render-and-commit': [
+    {
+      question: 'During the "render" step, has anything on the actual screen changed yet?',
+      options: ['Yes, immediately', 'No — render just figures out what JSX should look like, in memory', 'Only the background color', 'Render and commit are the same step'],
+      correctIndex: 1,
+      explanation:
+        'Render calculates what the UI should be, entirely in memory. Only the "commit" step actually touches the real screen, and only for the parts that changed.',
+    },
+  ],
+  'choosing-state-structure': [
+    {
+      question: 'Why is `const count = items.length;` usually better than a separate `count` state variable?',
+      options: [
+        'It runs faster in all cases',
+        'It avoids keeping two values in sync manually — count is always correct because it\'s derived',
+        'Arrays cannot have a .length property',
+        'It is required by React'
+      ],
+      correctIndex: 1,
+      explanation:
+        'If a value can be calculated from state you already have, storing it separately just creates a second copy that can drift out of sync. Deriving it during render keeps a single source of truth.',
+    },
+  ],
+  'preserving-resetting-state': [
+    {
+      question: 'How do you force React to reset a component\'s state instead of preserving it?',
+      options: [
+        'Call useState twice',
+        'Give the component a different `key` prop',
+        'Wrap it in a fragment',
+        'It resets automatically every render'
+      ],
+      correctIndex: 1,
+      explanation:
+        'React uses a component\'s position in the tree (and its key) to decide whether it\'s "the same" component across renders. Changing the key tells React to treat it as a brand-new instance, resetting its state.',
+    },
+  ],
+  'effect-timing': [
+    {
+      question: 'What should you ask to decide if code belongs in an effect vs. an event handler?',
+      options: [
+        'Whether the code uses state at all',
+        'Whether it should re-run just because the component re-rendered, or only because of a specific user action',
+        'Whether the code is long or short',
+        'Effects and event handlers are interchangeable'
+      ],
+      correctIndex: 1,
+      explanation:
+        "Effects synchronize with something whenever relevant values change (re-run on re-render). Event handlers only run in direct response to a specific action, like a click — mixing the two causes bugs.",
+    },
+  ],
+  'effect-dependencies': [
+    {
+      question: 'An effect reads a prop called `city` but the dependency array is empty ([]). What happens?',
+      options: [
+        'The effect updates automatically anyway',
+        'The effect keeps using the stale city value from the first render, even after city changes',
+        'React throws an error immediately',
+        'Nothing — empty arrays are ignored'
+      ],
+      correctIndex: 1,
+      explanation:
+        "An effect's dependency array must list every reactive value it reads. Omitting `city` means the effect never re-runs when city changes, so it keeps working with outdated data.",
+    },
+  ],
+  'route-parameters': [
+    {
+      question: 'In the route `<Route path="/products/:productId" element={<ProductPage />} />`, how does ProductPage read the id from the URL?',
+      options: ['props.id', 'window.location.id', 'The useParams() hook', 'It cannot be read'],
+      correctIndex: 2,
+      explanation:
+        '`useParams()` returns an object with every named segment from the matched path — here, `{ productId: "..." }` — reflecting whatever value is currently in the URL.',
+    },
+  ],
+  'intro-to-typescript': [
+    {
+      question: 'What does TypeScript add on top of regular JavaScript?',
+      options: [
+        'A completely different, unrelated language',
+        'Optional type labels that catch mistakes before the code even runs',
+        'A new way to write CSS',
+        'Faster runtime performance only'
+      ],
+      correctIndex: 1,
+      explanation:
+        'TypeScript is JavaScript plus type annotations. Your editor and build tools use those labels to catch mismatches — like passing a number where a string was expected — before you ever run the app.',
+    },
+  ],
 }
