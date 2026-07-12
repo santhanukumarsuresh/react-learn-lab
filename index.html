@@ -17,6 +17,16 @@
     />
     <meta property="og:type" content="website" />
     <script>
+      // Applies the saved theme before first paint to avoid a flash of the wrong theme.
+      ;(function () {
+        var stored = localStorage.getItem('react-learn-lab:theme')
+        var isDark =
+          stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
+        document.documentElement.classList.toggle('dark', isDark)
+      })()
+    </script>
+    <script>
       // Restores the original deep-link path saved by 404.html.
       ;(function (l) {
         if (l.search[1] === 'p' && l.search[2] === '=') {

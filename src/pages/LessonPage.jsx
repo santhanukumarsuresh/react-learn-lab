@@ -1,5 +1,6 @@
 import { Suspense } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
+import { Construction } from 'lucide-react'
 import { findLesson, getAdjacentLessons } from '../data/curriculum'
 import LessonLayout from '../components/LessonLayout'
 import { lessonComponents } from '../lessons/registry'
@@ -15,7 +16,7 @@ export default function LessonPage() {
   const Content = lessonComponents[lesson.slug]
 
   return (
-    <LessonLayout partId={part.id} lesson={lesson} prev={prev} next={next}>
+    <LessonLayout partId={part.id} part={part} lesson={lesson} prev={prev} next={next}>
       <Suspense fallback={<p>Loading lesson…</p>}>
         {Content ? <Content /> : <ComingSoon title={lesson.title} />}
       </Suspense>
@@ -26,7 +27,7 @@ export default function LessonPage() {
 function ComingSoon({ title }) {
   return (
     <div className="rounded-xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center dark:border-slate-700 dark:bg-slate-900">
-      <p className="text-4xl">🚧</p>
+      <Construction className="mx-auto text-slate-400" size={36} />
       <p className="mt-3 font-semibold text-slate-700 dark:text-slate-200">
         "{title}" is being written!
       </p>
