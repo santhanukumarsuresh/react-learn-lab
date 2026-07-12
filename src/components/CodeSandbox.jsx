@@ -1,13 +1,34 @@
 import { useState, useEffect } from 'react'
+import {
+  MemoryRouter,
+  Routes,
+  Route,
+  Link,
+  NavLink,
+  useNavigate,
+} from 'react-router-dom'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 
-const scope = { useState, useEffect }
+const baseScope = {
+  useState,
+  useEffect,
+  MemoryRouter,
+  Routes,
+  Route,
+  Link,
+  NavLink,
+  useNavigate,
+}
 
 // A small live-editable code playground used inside lessons.
 // Kids can change the code on the left and see the result update instantly.
-export default function CodeSandbox({ code, noInline = true }) {
+export default function CodeSandbox({ code, noInline = true, scope }) {
   return (
-    <LiveProvider code={code.trim()} noInline={noInline} scope={scope}>
+    <LiveProvider
+      code={code.trim()}
+      noInline={noInline}
+      scope={{ ...baseScope, ...scope }}
+    >
       <div className="my-6 overflow-hidden rounded-xl border border-slate-700 shadow-lg">
         <div className="flex items-center gap-2 bg-slate-800 px-4 py-2 text-xs font-medium text-slate-300">
           <span className="h-3 w-3 rounded-full bg-red-400" />

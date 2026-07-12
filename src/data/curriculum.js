@@ -1,6 +1,6 @@
 // The full course outline. Each lesson points at a slug used in the URL.
 // `ready: true` lessons have real written content in src/lessons.
-// `ready: false` lessons show a friendly "coming soon" teaser.
+// `ready: false` lessons (none currently) show a friendly "coming soon" teaser.
 
 export const curriculum = [
   {
@@ -20,9 +20,9 @@ export const curriculum = [
       { slug: 'variables', title: 'Variables: let and const', ready: true },
       { slug: 'functions', title: 'Functions & Arrow Functions', ready: true },
       { slug: 'arrays-objects', title: 'Arrays and Objects', ready: true },
-      { slug: 'destructuring', title: 'Destructuring', ready: false },
-      { slug: 'spread-rest', title: 'Spread and Rest', ready: false },
-      { slug: 'modules', title: 'Imports and Exports', ready: false },
+      { slug: 'destructuring', title: 'Destructuring', ready: true },
+      { slug: 'spread-rest', title: 'Spread and Rest', ready: true },
+      { slug: 'modules', title: 'Imports and Exports', ready: true },
     ],
   },
   {
@@ -40,8 +40,8 @@ export const curriculum = [
     icon: '📝',
     lessons: [
       { slug: 'what-is-jsx', title: 'What Is JSX?', ready: true },
-      { slug: 'jsx-expressions', title: 'Putting Values Inside JSX', ready: false },
-      { slug: 'jsx-rules', title: 'The Rules of JSX', ready: false },
+      { slug: 'jsx-expressions', title: 'Putting Values Inside JSX', ready: true },
+      { slug: 'jsx-rules', title: 'The Rules of JSX', ready: true },
     ],
   },
   {
@@ -51,7 +51,7 @@ export const curriculum = [
     lessons: [
       { slug: 'first-component', title: 'Your First Component', ready: true },
       { slug: 'props', title: 'Props: Passing Information', ready: true },
-      { slug: 'composing', title: 'Combining Components', ready: false },
+      { slug: 'composing', title: 'Combining Components', ready: true },
     ],
   },
   {
@@ -59,8 +59,8 @@ export const curriculum = [
     title: 'Part 5 · Event Handling',
     icon: '🖱️',
     lessons: [
-      { slug: 'click-events', title: 'Handling Clicks', ready: false },
-      { slug: 'form-events', title: 'Handling Forms', ready: false },
+      { slug: 'click-events', title: 'Handling Clicks', ready: true },
+      { slug: 'form-events', title: 'Handling Forms', ready: true },
     ],
   },
   {
@@ -69,7 +69,7 @@ export const curriculum = [
     icon: '🎛️',
     lessons: [
       { slug: 'use-state', title: 'Remembering Things with useState', ready: true },
-      { slug: 'updating-state', title: 'Updating State the Right Way', ready: false },
+      { slug: 'updating-state', title: 'Updating State the Right Way', ready: true },
     ],
   },
   {
@@ -77,8 +77,8 @@ export const curriculum = [
     title: 'Part 7 · Hooks',
     icon: '🪝',
     lessons: [
-      { slug: 'use-effect', title: 'Doing Things with useEffect', ready: false },
-      { slug: 'custom-hooks', title: 'Building Your Own Hook', ready: false },
+      { slug: 'use-effect', title: 'Doing Things with useEffect', ready: true },
+      { slug: 'custom-hooks', title: 'Building Your Own Hook', ready: true },
     ],
   },
   {
@@ -86,8 +86,8 @@ export const curriculum = [
     title: 'Part 8 · React Router',
     icon: '🧭',
     lessons: [
-      { slug: 'basic-routing', title: 'Pages with React Router', ready: false },
-      { slug: 'navigation', title: 'Linking Pages Together', ready: false },
+      { slug: 'basic-routing', title: 'Pages with React Router', ready: true },
+      { slug: 'navigation', title: 'Linking Pages Together', ready: true },
     ],
   },
   {
@@ -95,7 +95,7 @@ export const curriculum = [
     title: 'Part 9 · Build a Project',
     icon: '🚀',
     lessons: [
-      { slug: 'mini-project', title: 'Build a To-Do List App', ready: false },
+      { slug: 'mini-project', title: 'Build a To-Do List App', ready: true },
     ],
   },
 ]
