@@ -3,13 +3,16 @@ import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react'
 import { useProgress } from '../data/useProgress'
 import { partIcons } from '../data/partIcons'
 import { quizzes } from '../data/quizzes'
+import { codingChallenges } from '../data/codingChallenges'
 import Quiz from './Quiz'
+import CodeChallenge from './CodeChallenge'
 
 export default function LessonLayout({ partId, part, lesson, prev, next, children }) {
   const { isComplete, toggleComplete } = useProgress()
   const done = isComplete(partId, lesson.slug)
   const PartIcon = part && partIcons[part.id]
   const questions = quizzes[lesson.slug]
+  const challenge = codingChallenges[lesson.slug]
 
   return (
     <article className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
@@ -24,6 +27,8 @@ export default function LessonLayout({ partId, part, lesson, prev, next, childre
       </h1>
 
       <div className="prose prose-slate max-w-none dark:prose-invert">{children}</div>
+
+      {challenge && <CodeChallenge {...challenge} />}
 
       {questions && questions.length > 0 && <Quiz questions={questions} />}
 

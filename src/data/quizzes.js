@@ -313,4 +313,176 @@ export const quizzes = {
         'React compares state by reference. `.filter()` returns a new array, which React sees as "different" and re-renders for — mutating the original array in place wouldn\'t trigger an update.',
     },
   ],
+  'template-literals': [
+    {
+      question: 'What does `` `Hi, ${name}!` `` produce if `name` is `"Ada"`?',
+      options: ['"Hi, ${name}!"', '"Hi, Ada!"', 'An error', '"Hi, undefined!"'],
+      correctIndex: 1,
+      explanation:
+        'Inside backticks, `${ }` is evaluated as real JavaScript and its result is dropped into the string — so `${name}` becomes "Ada".',
+    },
+  ],
+  'conditional-rendering': [
+    {
+      question: 'Why is `{count && <p>Items: {count}</p>}` risky when `count` can be 0?',
+      options: [
+        "It's not risky at all",
+        'It throws an error when count is 0',
+        'React renders a stray "0" on screen, since 0 is falsy but still gets displayed',
+        "It always shows the <p>, even at 0"
+      ],
+      correctIndex: 2,
+      explanation:
+        '`&&` returns its first falsy operand as-is. `0` is falsy, so React renders the number `0` itself rather than nothing. Using `count > 0 && ...` avoids this.',
+    },
+  ],
+  'rendering-lists': [
+    {
+      question: "Why shouldn't you use an array's index as its `key` if the list can be reordered?",
+      options: [
+        'Indexes are always duplicated automatically',
+        "React can confuse which item is which as the list changes, causing bugs",
+        'JavaScript forbids using numbers as keys',
+        'It makes .map() run twice'
+      ],
+      correctIndex: 1,
+      explanation:
+        "When items move around, their index changes even though the item itself didn't — so React may match the wrong old element to the wrong new position. A stable id from your data avoids this.",
+    },
+  ],
+  'importing-exporting': [
+    {
+      question: 'When should you use a named export instead of a default export for a component?',
+      options: [
+        'Never — named exports are outdated',
+        'When a file offers several equally-important components to the outside world',
+        'Only for components used in more than 10 places',
+        'Default and named exports are exactly the same thing'
+      ],
+      correctIndex: 1,
+      explanation:
+        'A single "main" component per file usually gets `export default`. When a file genuinely exports multiple components other files need, name each one so they can be imported individually.',
+    },
+  ],
+  'pure-components': [
+    {
+      question: 'What makes a React component "impure"?',
+      options: [
+        'Using props to decide what to render',
+        'Changing a variable that exists outside the component while it renders',
+        'Returning JSX',
+        'Accepting more than one prop'
+      ],
+      correctIndex: 1,
+      explanation:
+        "A pure component only reads its props/state and returns JSX — it doesn't change anything outside itself during render. Side effects belong in event handlers or useEffect, not render.",
+    },
+  ],
+  'state-snapshot': [
+    {
+      question: "Right after calling `setCount(count + 1)`, what does the very next line see when it reads `count`?",
+      options: [
+        'The brand-new updated value',
+        'The old value from the render that\'s currently running',
+        'undefined',
+        'An error is thrown'
+      ],
+      correctIndex: 1,
+      explanation:
+        "React hands each render a frozen snapshot of state. Calling the setter schedules a new render with the new value — it doesn't change the variable in the render that's already running.",
+    },
+  ],
+  'updating-objects': [
+    {
+      question: 'Why does `robot.power = "new"; setRobot(robot);` fail to update the screen?',
+      options: [
+        "It's actually correct and works fine",
+        "setRobot is being passed the same object reference, so React doesn't detect a change",
+        'You need to call setRobot twice',
+        'Objects cannot be stored in state at all'
+      ],
+      correctIndex: 1,
+      explanation:
+        "React checks whether the new state is a different object from the old one. Mutating and passing back the same reference looks unchanged to React, so it skips re-rendering. Use `{ ...robot, power: 'new' }` instead.",
+    },
+  ],
+  'updating-arrays-in-state': [
+    {
+      question: 'Which of these safely updates one task inside an array of tasks in state?',
+      options: [
+        'tasks[2].done = true;',
+        'tasks.push({ done: true });',
+        'setTasks(tasks.map(t => t.id === id ? { ...t, done: true } : t));',
+        'tasks.splice(2, 1, newTask);'
+      ],
+      correctIndex: 2,
+      explanation:
+        '.map() builds a brand-new array, replacing only the matching item with a new object — nothing is mutated in place, so React reliably notices the change.',
+    },
+  ],
+  'lifting-state-up': [
+    {
+      question: 'Two sibling components both need to reflect the same "selected" value. Where should that state live?',
+      options: [
+        'Duplicated in useState inside each sibling',
+        'In their closest shared parent component, passed down as props',
+        "It's impossible for siblings to share state",
+        'In the browser\'s localStorage only'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Lifting state up means moving it to the nearest common ancestor, which then passes the value and an updater function down as props to both children.',
+    },
+  ],
+  'you-might-not-need-an-effect': [
+    {
+      question: 'If `fullName` can be calculated directly from `firstName` and `lastName`, what should you do?',
+      options: [
+        'Store it in its own useState and update it inside a useEffect',
+        'Calculate it directly during render: `const fullName = firstName + " " + lastName;`',
+        'Fetch it from a server',
+        'It can only be done with useReducer'
+      ],
+      correctIndex: 1,
+      explanation:
+        'If a value can be derived from existing props/state, just calculate it during render — no Hook needed. Reach for useEffect only for syncing with something outside React.',
+    },
+  ],
+  'use-ref': [
+    {
+      question: 'What is the key difference between useState and useRef?',
+      options: [
+        'They are exactly the same',
+        'Changing a ref\'s .current value does NOT trigger a re-render, unlike state',
+        'useRef can only store numbers',
+        'useState is faster than useRef'
+      ],
+      correctIndex: 1,
+      explanation:
+        "A ref is a mutable box that persists between renders but doesn't cause React to re-render when it changes — useful for values you need to track without displaying, or for reaching into the DOM.",
+    },
+  ],
+  'use-reducer': [
+    {
+      question: 'In `useReducer`, what do you call to trigger a state update?',
+      options: ['setState()', 'The reducer function directly', 'dispatch(action)', 'update()'],
+      correctIndex: 2,
+      explanation:
+        '`useReducer` gives you `[state, dispatch]`. You send an action object to `dispatch`, and the reducer function decides how state should change in response.',
+    },
+  ],
+  'use-context': [
+    {
+      question: 'What problem does useContext mainly solve?',
+      options: [
+        'Making components render faster',
+        'Avoiding "prop drilling" — passing data through many components that don\'t need it',
+        'Replacing useState entirely',
+        'Handling click events'
+      ],
+      correctIndex: 1,
+      explanation:
+        'Context lets deeply nested components read a value directly from a Provider higher up the tree, skipping all the components in between that would otherwise have to pass it down as props.',
+    },
+  ],
 }

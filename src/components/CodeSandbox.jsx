@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useReducer, useContext, createContext } from 'react'
 import {
   MemoryRouter,
   Routes,
@@ -9,9 +9,13 @@ import {
 } from 'react-router-dom'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 
-const baseScope = {
+export const baseScope = {
   useState,
   useEffect,
+  useRef,
+  useReducer,
+  useContext,
+  createContext,
   MemoryRouter,
   Routes,
   Route,

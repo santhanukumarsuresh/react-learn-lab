@@ -20,6 +20,7 @@ export const curriculum = [
       { slug: 'arrays-objects', title: 'Arrays and Objects', ready: true },
       { slug: 'destructuring', title: 'Destructuring', ready: true },
       { slug: 'spread-rest', title: 'Spread and Rest', ready: true },
+      { slug: 'template-literals', title: 'Template Literals', ready: true },
       { slug: 'modules', title: 'Imports and Exports', ready: true },
     ],
   },
@@ -38,6 +39,8 @@ export const curriculum = [
       { slug: 'what-is-jsx', title: 'What Is JSX?', ready: true },
       { slug: 'jsx-expressions', title: 'Putting Values Inside JSX', ready: true },
       { slug: 'jsx-rules', title: 'The Rules of JSX', ready: true },
+      { slug: 'conditional-rendering', title: 'Conditional Rendering', ready: true },
+      { slug: 'rendering-lists', title: 'Rendering Lists', ready: true },
     ],
   },
   {
@@ -45,8 +48,10 @@ export const curriculum = [
     title: 'Part 4 · Components',
     lessons: [
       { slug: 'first-component', title: 'Your First Component', ready: true },
+      { slug: 'importing-exporting', title: 'Importing and Exporting Components', ready: true },
       { slug: 'props', title: 'Props: Passing Information', ready: true },
       { slug: 'composing', title: 'Combining Components', ready: true },
+      { slug: 'pure-components', title: 'Keeping Components Pure', ready: true },
     ],
   },
   {
@@ -62,7 +67,11 @@ export const curriculum = [
     title: 'Part 6 · State',
     lessons: [
       { slug: 'use-state', title: 'Remembering Things with useState', ready: true },
+      { slug: 'state-snapshot', title: 'State Is a Snapshot', ready: true },
       { slug: 'updating-state', title: 'Updating State the Right Way', ready: true },
+      { slug: 'updating-objects', title: 'Updating Objects in State', ready: true },
+      { slug: 'updating-arrays-in-state', title: 'Updating Arrays in State', ready: true },
+      { slug: 'lifting-state-up', title: 'Sharing State Between Components', ready: true },
     ],
   },
   {
@@ -70,6 +79,10 @@ export const curriculum = [
     title: 'Part 7 · Hooks',
     lessons: [
       { slug: 'use-effect', title: 'Doing Things with useEffect', ready: true },
+      { slug: 'you-might-not-need-an-effect', title: 'You Might Not Need an Effect', ready: true },
+      { slug: 'use-ref', title: 'Referencing Values with useRef', ready: true },
+      { slug: 'use-reducer', title: 'Extracting Logic with useReducer', ready: true },
+      { slug: 'use-context', title: 'Passing Data Deeply with Context', ready: true },
       { slug: 'custom-hooks', title: 'Building Your Own Hook', ready: true },
     ],
   },
