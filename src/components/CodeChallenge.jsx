@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 import { Code2, Lightbulb, RotateCcw, Sparkles } from 'lucide-react'
 import { baseScope } from './CodeSandbox'
@@ -33,31 +34,45 @@ export default function CodeChallenge({ prompt, starterCode, solutionCode, expla
 
       <div className="border-t border-sky-100 bg-white p-4 dark:border-sky-900/60 dark:bg-slate-900">
         {!showSolution ? (
-          <button
+          <motion.button
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => setShowSolution(true)}
-            className="inline-flex items-center gap-1.5 rounded-lg bg-sky-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-sky-500"
+            className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
           >
             <Sparkles size={15} />
             View Solution
-          </button>
+          </motion.button>
         ) : (
           <>
-            <button
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.95 }}
               onClick={() => setShowSolution(false)}
               className="inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:border-slate-400 dark:border-slate-700 dark:text-slate-300 dark:hover:border-slate-600"
             >
               <RotateCcw size={14} />
               Back to My Attempt
-            </button>
-            {explanation && (
-              <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-900/60 dark:bg-amber-900/20 dark:text-amber-200">
-                <p className="flex items-center gap-1.5 font-semibold">
-                  <Lightbulb size={15} />
-                  How it works
-                </p>
-                <p className="mt-1.5 leading-relaxed">{explanation}</p>
-              </div>
-            )}
+            </motion.button>
+            <AnimatePresence>
+              {explanation && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900 dark:border-amber-900/60 dark:bg-amber-900/20 dark:text-amber-200">
+                    <p className="flex items-center gap-1.5 font-semibold">
+                      <Lightbulb size={15} />
+                      How it works
+                    </p>
+                    <p className="mt-1.5 leading-relaxed">{explanation}</p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </>
         )}
       </div>
