@@ -1,27 +1,224 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+/* Brand typeface (self-hosted via @fontsource — no runtime CDN). */
+@import '@fontsource/montserrat/400.css';
+@import '@fontsource/montserrat/500.css';
+@import '@fontsource/montserrat/600.css';
+@import '@fontsource/montserrat/700.css';
+@import '@fontsource/montserrat/800.css';
+
+/*
+  ────────────────────────────────────────────────────────────────────────
+  THEME TOKENS (token-driven design system, ported from frontendwar)
+  ────────────────────────────────────────────────────────────────────────
+  Brand palette:
+    primary #005396 · blue-light #00a0dc · teal #11b9b4 · coral #f89e64
+  Colors are declared once as CSS variables, then mapped into Tailwind via
+  `@theme inline`, so utilities (bg-background, text-primary, …) read the
+  tokens and switching light/dark is just flipping the `dark` class on <html>.
+*/
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-body {
-  margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+:root {
+  --radius: 0.625rem;
+
+  /* Surfaces (light) */
+  --background: oklch(98.5% 0.002 247.839);
+  --foreground: oklch(21% 0.006 285.885);
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(21% 0.006 285.885);
+
+  /* Brand primary */
+  --primary: #005396;
+  --primary-foreground: oklch(100% 0 0);
+
+  --muted: oklch(96.5% 0.004 247);
+  --muted-foreground: oklch(50% 0.012 252);
+
+  --accent: oklch(95% 0.021 235);
+  --accent-foreground: oklch(30% 0.05 250);
+
+  --destructive: #c20000;
+  --destructive-foreground: oklch(100% 0 0);
+
+  --border: oklch(91% 0.006 247);
+  --input: oklch(91% 0.006 247);
+  --ring: #005396;
+
+  /* Brand palette (constant across themes; for gradients & accents) */
+  --brand: #005396;
+  --brand-light: #00a0dc;
+  --brand-teal: #11b9b4;
+  --brand-orange: #f89e64;
+  --brand-yellow: #ffd500;
+
+  /* Data-viz series (all on-brand) */
+  --chart-1: #005396;
+  --chart-2: #00a0dc;
+  --chart-3: #11b9b4;
+  --chart-4: #f89e64;
+  --chart-5: #6d5cff;
 }
 
-* {
-  scrollbar-width: thin;
+.dark {
+  /* Surfaces — darker page, lifted card */
+  --background: oklch(20.5% 0.014 253.1);
+  --foreground: oklch(97.8% 0.029 256.847);
+  --card: oklch(24.3% 0.016 252.42);
+  --card-foreground: oklch(97.8% 0.029 256.847);
+
+  /* Brand primary — lightened within the blue family for dark-mode contrast */
+  --primary: #2b8fd6;
+  --primary-foreground: oklch(100% 0 0);
+
+  --muted: oklch(29% 0.014 253);
+  --muted-foreground: oklch(73% 0.02 256);
+
+  --accent: oklch(32% 0.032 245);
+  --accent-foreground: oklch(97.8% 0.029 256.847);
+
+  --destructive: #f0575c;
+  --destructive-foreground: oklch(100% 0 0);
+
+  --border: oklch(100% 0 0 / 12%);
+  --input: oklch(100% 0 0 / 16%);
+  --ring: #00a0dc;
+
+  --chart-1: #2b8fd6;
+  --chart-2: #00a0dc;
+  --chart-3: #11b9b4;
+  --chart-4: #f89e64;
+  --chart-5: #8b7cff;
 }
 
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand: var(--brand);
+  --color-brand-light: var(--brand-light);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-yellow: var(--brand-yellow);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: 'Montserrat', ui-sans-serif, system-ui, 'Segoe UI', Roboto, sans-serif;
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--brand-light) 55%, transparent) transparent;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.015em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/*
+  Custom scrollbar (WebKit / Chromium). The thumb uses a FIXED brand color
+  (never redefined per theme), so the theme-switch reveal never flashes.
+*/
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(148 163 184 / 0.4);
+  background: color-mix(in oklab, var(--brand-light) 45%, transparent);
   border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  min-height: 40px;
 }
-.dark ::-webkit-scrollbar-thumb {
-  background-color: rgb(71 85 105 / 0.6);
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in oklab, var(--brand-light) 72%, transparent);
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/*
+  ────────────────────────────────────────────────────────────────────────
+  PREMIUM THEME SWITCH (View Transitions API — circular reveal)
+  ────────────────────────────────────────────────────────────────────────
+  The new theme snapshot is clip-path–revealed in an expanding circle from
+  the toggle position (driven in src/lib/theme-transition.js). The default
+  cross-fade is disabled so the reveal is crisp. Falls back to an instant
+  swap where the API is unsupported or reduced motion is requested.
+*/
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 2147483646;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

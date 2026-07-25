@@ -10,14 +10,26 @@ Live site: https://santhanukumarsuresh.github.io/react-learn-lab/
 - A guided curriculum: JavaScript warm-up → Meet React → JSX → Components → Events →
   State → Hooks → React Router → a mini project
 - Interactive, editable code sandboxes on every lesson (powered by `react-live`)
-- Progress tracking saved locally in your browser
+- Progress tracking saved locally in your browser, with a per-part Recharts dashboard
 - A responsive sidebar navigation inspired by modern learning platforms
+- A procedural 3D "React atom" hero (Three.js + React Three Fiber, lazy-loaded)
+- A token-driven theme system: light/dark with a circular-reveal switch
+  (View Transitions API) and a clickable accent picker, persisted to LocalStorage
+- Motion everywhere — page transitions, staggered entrances, animated sidebar and
+  quiz feedback — with full `prefers-reduced-motion` support
 
 ## Tech stack
 
 - [React](https://react.dev) 19 + [Vite](https://vite.dev)
-- [Tailwind CSS](https://tailwindcss.com) v4
+- [Tailwind CSS](https://tailwindcss.com) v4 with token-driven CSS-variable theming
 - [React Router](https://reactrouter.com)
+- [Motion](https://motion.dev) (Framer Motion) for animations
+- [Zustand](https://zustand.docs.pmnd.rs) for theme / tier / progress state
+- [Three.js](https://threejs.org) + [React Three Fiber](https://r3f.docs.pmnd.rs) + drei for the 3D hero
+- [Recharts](https://recharts.org) for the progress dashboard
+- [Radix UI](https://www.radix-ui.com) tabs + shadcn/ui-style `cn`/`cva` utilities
+- [Lenis](https://lenis.darkroom.engineering) smooth scrolling
+- [Montserrat](https://fontsource.org/fonts/montserrat) self-hosted via @fontsource
 - [react-live](https://github.com/FormidableLabs/react-live) for in-browser code sandboxes
 - Deployed to [GitHub Pages](https://pages.github.com) via GitHub Actions
 
@@ -53,10 +65,11 @@ publishes `dist/` to GitHub Pages automatically. To enable this on a fresh fork:
 ```
 src/
   data/curriculum.js   # the course outline (parts + lessons)
-  data/useProgress.js  # localStorage-backed progress tracking
-  components/          # Sidebar, Topbar, CodeSandbox, layout, etc.
+  store/               # Zustand stores (theme, tier, progress — localStorage-backed)
+  lib/                 # cn(), motion presets, theme transition, Lenis, page titles
+  components/          # Sidebar, Topbar, CodeSandbox, Hero3D, layout, etc.
   lessons/              # lesson content, one file per written lesson
-  pages/                # route-level pages (Home, Lesson)
+  pages/                # route-level pages (Home, Lesson, NotFound)
 ```
 
 Lessons not yet written show a friendly "coming soon" placeholder automatically — just
